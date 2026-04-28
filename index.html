@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>青盾验证 CyanShield - totp.com.cn</title>
+    <style>
+        :root {
+            --primary-color: #00ffcc; /* 更亮的青色 */
+            --accent-color: #ff00cc;  /* 霓虹紫 */
+            --text-color: #ffffff;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 核心修改：大幅提升亮度的径向渐变背景 */
+            background: #0a0e14;
+            background: radial-gradient(circle at 20% 30%, #1a3a4a 0%, #0a0e14 50%),
+                        radial-gradient(circle at 80% 70%, #2a1a3a 0%, #0a0e14 50%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        /* 增加一个动态的极光光晕层 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(125deg, transparent 30%, rgba(0, 255, 204, 0.05) 50%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+            animation: aurora 10s linear infinite;
+        }
+
+        @keyframes aurora {
+            0% { transform: translateX(-50%) skewX(-15deg); }
+            100% { transform: translateX(50%) skewX(-15deg); }
+        }
+
+        .container {
+            max-width: 900px;
+            padding: 60px 20px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .logo-shield {
+            font-size: 80px;
+            margin-bottom: 30px;
+            display: inline-block;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 204, 0.6));
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            background: linear-gradient(to right, #fff, var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .domain-badge {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 5px 15px;
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid var(--primary-color);
+            border-radius: 30px;
+            font-family: 'Courier New', monospace;
+            color: var(--primary-color);
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            margin: 30px 0 60px;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 2px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 35px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .dev-status {
+            margin-top: 70px;
+            padding: 15px 40px;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.1), transparent);
+            border-top: 1px solid rgba(0, 255, 204, 0.2);
+            border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+            font-style: italic;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .subtitle { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo-shield">🛡️</div>
+    <h1>青盾验证</h1>
+    <div class="domain-badge">totp.com.cn</div>
+    
+    <p class="subtitle">让每一个中国用户拥有数字主权</p>
+
+    <div class="features">
+        <div class="card">
+            <h3>🎨 国产图标引擎</h3>
+            <p>智能识别数千款国内常用 App 图标。你的验证码列表，从此赏心悦目。</p>
+        </div>
+        <div class="card">
+            <h3>🔒 绝对隐私架构</h3>
+            <p>100% 离线，不申请联网权限。开源代码，接受全球开发者安全审计。</p>
+        </div>
+        <div class="card">
+            <h3>☁️ 本地云端共生</h3>
+            <p>支持 WebDAV、阿里云盘加密同步。数据在你自己手里，换手机从此无忧。</p>
+        </div>
+    </div>
+
+    <div class="dev-status">
+        🚀 项目正在紧张开发中，源码即将同步 GitHub，敬请关注！
+    </div>
+</div>
+
+</body>
+</html>
